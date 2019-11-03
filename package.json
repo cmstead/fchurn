@@ -1,0 +1,26 @@
+{
+  "name": "fchurn",
+  "version": "1.0.0",
+  "description": "File churn metric generator for projects using Git",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmstead/fchurn.git"
+  },
+  "keywords": [
+    "\"file",
+    "churn\"",
+    "\"code",
+    "metrics\"",
+    "utilities"
+  ],
+  "author": "Chris Stead",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/cmstead/fchurn/issues"
+  },
+  "homepage": "https://github.com/cmstead/fchurn#readme"
+}
