@@ -15,6 +15,10 @@ help
     Value: none
     Description: display help info
 
+json
+    Value: none
+    Description: Display churn metrics in JSON format
+
 showTop
     Value: Number of churn records to show
     Description: Show the top X churned files
