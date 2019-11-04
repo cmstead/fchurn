@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "File churn metric generator for projects using Git",
   "main": "index.js",
+  "bin": {
+    "fchurn": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,5 +25,8 @@
   "bugs": {
     "url": "https://github.com/cmstead/fchurn/issues"
   },
-  "homepage": "https://github.com/cmstead/fchurn#readme"
+  "homepage": "https://github.com/cmstead/fchurn#readme",
+  "dependencies": {
+    "moment": "^2.24.0"
+  }
 }
