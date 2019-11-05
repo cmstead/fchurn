@@ -27,7 +27,7 @@ function getMetricTokens(logLines) {
     let lastDate = null;
 
     const somethingSomething = something.reduce((logData, logLine) => {
-        if(dataPattern.test(logLine)){
+        if (dataPattern.test(logLine)) {
             return logData.concat({
                 date: lastDate,
                 tokens: logLine.split('\t')
@@ -49,32 +49,46 @@ function buildFileMetricsMap(metricValues) {
 
             const hasMetrics = typeof finalMetrics[fileName] !== 'undefined';
 
-            const currentValue = hasMetrics ? finalMetrics[fileName].churnCount : 0;
-            const startDate = hasMetrics ? finalMetrics[fileName].startDate : logDate;
-
-            finalMetrics[fileName] = {
-                churnCount: currentValue + 1,
-                startDate: startDate,
-                endDate: logDate
-            };
+            if(hasMetrics) {
+                finalMetrics[fileName].churnCount += 1;
+                finalMetrics[fileName].startDate = logDate;
+            } else {
+                finalMetrics[fileName] = {
+                    churnCount: 1,
+                    startDate: logDate
+                };
+            }
 
             return finalMetrics;
         }, {});
 }
 
 function descendingMetricSort(metric1, metric2) {
-    return metric2.churnCount - metric1.churnCount;
+    return metric2.churn - metric1.churn;
 }
 
 function buildSortedOutputValues(fileMetricsMap) {
     const extractedOutputValues = Object
         .keys(fileMetricsMap)
-        .map(key => ({
-            fileName: key,
-            churnCount: fileMetricsMap[key].churnCount,
-            startDate: fileMetricsMap[key].startDate,
-            endDate: fileMetricsMap[key].endDate
-        }));
+        .map(key => {
+            const startDate = new Date(fileMetricsMap[key].startDate);
+            const endDate = new Date();
+
+            const start = moment(startDate);
+            const end = moment(endDate);
+
+            const rawDuration = moment.duration(end.diff(start)).asDays();
+            const duration = rawDuration ? Math.ceil(rawDuration) : 1;
+
+            const churnCount = fileMetricsMap[key].churnCount;
+
+            return {
+                fileName: key,
+                modificationCount: churnCount,
+                churn: churnCount / duration,
+                churnWindow: duration
+            }
+        });
 
     extractedOutputValues.sort(descendingMetricSort);
 

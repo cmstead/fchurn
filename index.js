@@ -2,6 +2,7 @@
 
 const logMetricTooling = require('./logMetricTooling');
 const helpService = require('./helpService');
+const path = require('path');
 
 const args = process.argv.slice(2);
 const argsMap = {};
@@ -45,7 +46,11 @@ if (fileDisplayCount > 0) {
 if(argsMap[JSONKEY]) {
     console.log(JSON.stringify(outputValues, null, 4));
 } else {
-    outputValues.forEach(metric => console.log(`\nChurn: ${metric.churnCount} \nFile Name: ${metric.fileName}`));
+    outputValues.forEach(metric => console.log(`
+Churn: ${metric.churn}
+Modification Count: ${metric.modificationCount}
+File Churn Window: ${metric.churnWindow} day(s)
+File Path: .${path.sep}${metric.fileName}`));
 }
 
 console.log('');
