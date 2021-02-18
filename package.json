@@ -1,6 +1,6 @@
 {
   "name": "fchurn",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "File churn metric generator for projects using Git",
   "main": "index.js",
   "bin": {
